@@ -1,0 +1,11 @@
+package chess.board;
+
+public enum PieceType {
+    PAWN,
+    KNIGHT,
+    BISHOP,
+    ROOK,
+    QUEEN,
+    KING,
+    EMPTY
+}
