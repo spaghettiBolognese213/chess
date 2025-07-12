@@ -30,14 +30,27 @@ public class Board {
         return newGrid;
     }
 
-    public void printBoard() {
-        // outer pieces
+    public String getBoardString() {
+        StringBuilder outputString = new StringBuilder();
+        String lineString = "———————————————————————————————————\n";
 
-        for (int i = 0; i < boardSize; i++) {
-            for (int j = 0; j < boardSize; j++) {
-                System.out.printf("| %c", boardGrid[i][j].getCharPiece());
-            }
-            System.out.println("|\n");
+        // outer pieces
+        outputString.append("  ");
+        for (int i = 1; i <= boardSize; i++) {
+            outputString.append("| ").append(i).append(" ");
         }
+        outputString.append(" \n");
+        outputString.append(lineString);
+
+        int baseAscii = 65;
+        for (int i = 0; i < boardSize; i++) {
+            outputString.append((char) (baseAscii+i)).append(" ");
+            for (int j = 0; j < boardSize; j++) {
+                outputString.append("| ").append(boardGrid[i][j].getCharPiece()).append(" ");
+            }
+            outputString.append("|\n");
+            outputString.append(lineString);
+        }
+        return outputString.toString();
     }
 }
