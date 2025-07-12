@@ -11,12 +11,12 @@ class BoardTest {
     public void fillBoardEmpty() {
         int boardSize = 8;
         Board board = new Board(boardSize);
-        Piece[][] actualGrid = board.fillBoard(new EmptyPiece());
+        Piece[][] actualGrid = board.fillBoard(new EmptyPiece(false));
 
         assertAll(() -> {
             for (int row = 0; row < boardSize; row++) {
                 for (int collumn = 0; collumn < boardSize; collumn++) {
-                    assertEquals(new EmptyPiece(), actualGrid[row][collumn]);
+                    assertEquals(new EmptyPiece(false), actualGrid[row][collumn]);
                 }
             }
         });
@@ -26,12 +26,12 @@ class BoardTest {
     public void fillBoardAllKings() {
         int boardSize = 8;
         Board board = new Board(boardSize);
-        Piece[][] actualGrid = board.fillBoard(new King());
+        Piece[][] actualGrid = board.fillBoard(new King(true));
 
         assertAll(() -> {
             for (int row = 0; row < boardSize; row++) {
                 for (int collumn = 0; collumn < boardSize; collumn++) {
-                    assertEquals(new King(), actualGrid[row][collumn]);
+                    assertEquals(new King(true), actualGrid[row][collumn]);
                 }
             }
         });
@@ -41,7 +41,7 @@ class BoardTest {
     public void printTestAllPawns() {
         int boardSize = 8;
         Board board = new Board(boardSize);
-        board.fillBoard(new King());
+        board.fillBoard(new Pawn(true));
 
         String expectedString =
                 "  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8  \n" +

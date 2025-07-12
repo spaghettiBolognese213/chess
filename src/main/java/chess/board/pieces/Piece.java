@@ -5,6 +5,7 @@ package chess.board.pieces;
 public class Piece {
     protected PieceType type;
     protected char typeChar;
+    protected boolean isWhite;
 
     public PieceType getType() {
         return type;
