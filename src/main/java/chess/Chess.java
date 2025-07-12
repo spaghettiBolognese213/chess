@@ -12,4 +12,8 @@ public class Chess {
         board = new Board(SIZE);
         boardExtractor = bExtractor;
     }
+
+    public void play() {
+        board.printBoard();
+    }
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import chess.board.PieceType;
+import chess.board.pieces.PieceType;
 
 public class BoardExtractor {
     private static String defaultBoardPath = "boardStates/defaultBoard.json";
