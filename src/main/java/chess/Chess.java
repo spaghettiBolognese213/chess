@@ -11,6 +11,7 @@ public class Chess {
     public Chess(BoardExtractor bExtractor) {
         board = new Board(SIZE);
         boardExtractor = bExtractor;
+        board.getGridFromSave(bExtractor);
     }
 
     public void play() {

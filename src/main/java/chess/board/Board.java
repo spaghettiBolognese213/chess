@@ -23,11 +23,10 @@ public class Board {
         return grid;
     }
 
-    public PieceType[][] getGridFromSave(BoardExtractor boardExtractor) {
+    public void getGridFromSave(BoardExtractor boardExtractor) {
 //        PieceType[][] newGrid = new BoardExtractor();
-        PieceType[][] newGrid = boardExtractor.extractDefault();
-
-        return newGrid;
+        Piece[][] newGrid = boardExtractor.extractDefault();
+        boardGrid = newGrid; // maybe has different size
     }
 
     public String getBoardString() {
