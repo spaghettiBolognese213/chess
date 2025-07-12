@@ -1,5 +1,7 @@
 package chess.board;
 
+import chess.json.BoardExtractor;
+
 public class Board {
     PieceType[][] boardGrid;
     int boardSize;
@@ -18,5 +20,12 @@ public class Board {
             }
         }
         return grid;
+    }
+
+    public PieceType[][] getGridFromSave(BoardExtractor boardExtractor) {
+//        PieceType[][] newGrid = new BoardExtractor();
+        PieceType[][] newGrid = boardExtractor.extractDefault();
+
+        return newGrid;
     }
 }
