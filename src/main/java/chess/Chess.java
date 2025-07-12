@@ -14,6 +14,6 @@ public class Chess {
     }
 
     public void play() {
-        board.getBoardString();
+        System.out.println(board.getBoardString());
     }
 }
