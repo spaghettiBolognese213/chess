@@ -1,4 +1,4 @@
-package chess.board;
+package chess.board.pieces;
 
 public enum PieceType {
     PAWN,

@@ -1,19 +1,20 @@
 package chess.board;
 
+import chess.board.pieces.*;
 import chess.json.BoardExtractor;
 
 public class Board {
-    PieceType[][] boardGrid;
+    Piece[][] boardGrid;
     int boardSize;
 
     public Board(int size) {
         boardSize = size;
-        boardGrid = new PieceType[size][size];
-        boardGrid = fillBoard(PieceType.EMPTY);
+        boardGrid = new Piece[size][size];
+        boardGrid = fillBoard(new Pawn());
     }
 
-    public PieceType[][] fillBoard(PieceType value) {
-        PieceType[][] grid = new PieceType[boardSize][boardSize];
+    public Piece[][] fillBoard(Piece value) {
+        Piece[][] grid = new Piece[boardSize][boardSize];
         for (int row = 0; row < boardSize; row++) {
             for (int collumn = 0; collumn < boardSize; collumn++) {
                 grid[row][collumn] = value;
@@ -27,5 +28,16 @@ public class Board {
         PieceType[][] newGrid = boardExtractor.extractDefault();
 
         return newGrid;
+    }
+
+    public void printBoard() {
+        // outer pieces
+
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                System.out.printf("| %c", boardGrid[i][j].getCharPiece());
+            }
+            System.out.println("|\n");
+        }
     }
 }
