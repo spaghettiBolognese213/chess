@@ -10,7 +10,7 @@ public class Board {
     public Board(int size) {
         boardSize = size;
         boardGrid = new Piece[size][size];
-        boardGrid = fillBoard(new Pawn());
+        boardGrid = fillBoard(new Pawn(true));
     }
 
     public Piece[][] fillBoard(Piece value) {

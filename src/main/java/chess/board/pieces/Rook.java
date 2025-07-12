@@ -1,8 +1,9 @@
 package chess.board.pieces;
 
 public class Rook extends Piece {
-    public Rook() {
+    public Rook(boolean isWhite) {
         this.type = PieceType.ROOK;
         this.typeChar = 'R';
+        this.isWhite = isWhite;
     }
 }

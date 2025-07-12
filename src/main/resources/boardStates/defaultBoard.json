@@ -1,12 +1,12 @@
 {
   "boardState": [
-    ["ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING", "BISHOP", "KNIGHT", "ROOK"],
-    ["PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN"],
+    ["ROOK W", "KNIGHT W", "BISHOP W", "KING W", "QUEEN W", "BISHOP W", "KNIGHT W", "ROOK W"],
+    ["PAWN W", "PAWN W", "PAWN W", "PAWN W", "PAWN W", "PAWN W", "PAWN W", "PAWN W", "PAWN W"],
     ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
     ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
     ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
     ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
-    ["PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN", "PAWN"],
-    ["ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING", "BISHOP", "KNIGHT", "ROOK"]
+    ["PAWN B", "PAWN B", "PAWN B", "PAWN B", "PAWN B", "PAWN B", "PAWN B", "PAWN B", "PAWN B"],
+    ["ROOK B", "KNIGHT B", "BISHOP B", "KING B", "QUEEN B", "BISHOP B", "KNIGHT B", "ROOK B"]
   ]
 }

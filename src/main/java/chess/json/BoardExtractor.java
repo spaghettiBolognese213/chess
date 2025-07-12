@@ -35,23 +35,36 @@ public class BoardExtractor {
 
     private Piece[][] stringGridToPieceGrid(String[][] stringArray, int gridSize) {
         Piece[][] outputArray = new Piece[gridSize][gridSize];
+
+        String[] pieceId;
+        boolean isWhite;
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                outputArray[i][j] = stringToPiece(stringArray[i][j]);
+                pieceId = stringArray[i][j].split(" ");
+
+                for (String item : pieceId) {
+                    System.out.println(item);
+                }
+                System.out.println();
+
+                if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1]);
+                else outputArray[i][j] = stringToPiece(pieceId[0], "false");
             }
         }
         return outputArray;
     }
 
-    private Piece stringToPiece(String string) {
+    private Piece stringToPiece(String string, String colourId) {
+        boolean isWhite = (colourId == "W");
+
         return switch (string) {
-            case "BISHOP" -> new Bishop();
-            case "EMPTY" -> new EmptyPiece();
-            case "KING" -> new King();
-            case "KNIGHT" -> new Knight();
-            case "PAWN" -> new Pawn();
-            case "QUEEN" -> new Queen();
-            case "ROOK" -> new Rook();
+            case "BISHOP" -> new Bishop(isWhite);
+            case "EMPTY" -> new EmptyPiece(isWhite);
+            case "KING" -> new King(isWhite);
+            case "KNIGHT" -> new Knight(isWhite);
+            case "PAWN" -> new Pawn(isWhite);
+            case "QUEEN" -> new Queen(isWhite);
+            case "ROOK" -> new Rook(isWhite);
             default -> throw new IllegalStateException("Unexpected value: " + string);
         };
     }
