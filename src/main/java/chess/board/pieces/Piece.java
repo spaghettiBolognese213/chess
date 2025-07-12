@@ -15,6 +15,8 @@ public class Piece {
         return typeChar;
     }
 
+    public boolean isWhite() {return isWhite;}
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

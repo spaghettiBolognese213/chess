@@ -24,7 +24,6 @@ public class Board {
     }
 
     public void getGridFromSave(BoardExtractor boardExtractor) {
-//        PieceType[][] newGrid = new BoardExtractor();
         Piece[][] newGrid = boardExtractor.extractDefault();
         boardGrid = newGrid; // maybe has different size
     }
@@ -33,7 +32,6 @@ public class Board {
         StringBuilder outputString = new StringBuilder();
         String lineString = "———————————————————————————————————\n";
 
-        // outer pieces
         outputString.append("  ");
         for (int i = 1; i <= boardSize; i++) {
             outputString.append("| ").append(i).append(" ");
@@ -42,10 +40,15 @@ public class Board {
         outputString.append(lineString);
 
         int baseAscii = 65;
+        String pieceIcon;
         for (int i = 0; i < boardSize; i++) {
             outputString.append((char) (baseAscii+i)).append(" ");
             for (int j = 0; j < boardSize; j++) {
-                outputString.append("| ").append(boardGrid[i][j].getCharPiece()).append(" ");
+
+                pieceIcon = boardGrid[i][j].getCharPiece().toString();
+                if (boardGrid[i][j].isWhite()) pieceIcon = pieceIcon.toLowerCase();
+
+                outputString.append("| ").append(pieceIcon).append(" ");
             }
             outputString.append("|\n");
             outputString.append(lineString);
