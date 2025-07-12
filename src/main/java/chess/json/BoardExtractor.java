@@ -45,17 +45,19 @@ public class BoardExtractor {
                 for (String item : pieceId) {
                     System.out.println(item);
                 }
-                System.out.println();
 
                 if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1]);
                 else outputArray[i][j] = stringToPiece(pieceId[0], "false");
+
+                System.out.println(outputArray[i][j].isWhite());
+                System.out.println();
             }
         }
         return outputArray;
     }
 
     private Piece stringToPiece(String string, String colourId) {
-        boolean isWhite = (colourId == "W");
+        boolean isWhite = (colourId.equals("W"));
 
         return switch (string) {
             case "BISHOP" -> new Bishop(isWhite);
