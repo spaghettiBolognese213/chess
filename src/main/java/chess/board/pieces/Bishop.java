@@ -5,5 +5,6 @@ public class Bishop extends Piece {
         this.type = PieceType.BISHOP;
         this.typeChar = 'B';
         this.isWhite = isWhite;
+        this.typeString = "bishop";
     }
 }

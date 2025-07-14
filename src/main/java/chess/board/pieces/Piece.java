@@ -6,6 +6,7 @@ public class Piece {
     protected PieceType type;
     protected char typeChar;
     protected boolean isWhite;
+    protected String typeString;
 
     public PieceType getType() {
         return type;
@@ -16,6 +17,11 @@ public class Piece {
     }
 
     public boolean isWhite() {return isWhite;}
+
+    @Override
+    public String toString() {
+        return typeString;
+    }
 
     @Override
     public boolean equals(Object obj) {

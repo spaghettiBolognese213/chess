@@ -5,5 +5,6 @@ public class Rook extends Piece {
         this.type = PieceType.ROOK;
         this.typeChar = 'R';
         this.isWhite = isWhite;
+        this.typeString = "rook";
     }
 }
