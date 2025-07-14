@@ -5,5 +5,7 @@ public class King extends Piece {
         this.type = PieceType.KING;
         this.typeChar = 'K';
         this.isWhite = isWhite;
+        this.typeString = "king";
+
     }
 }

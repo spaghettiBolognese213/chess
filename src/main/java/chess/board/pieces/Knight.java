@@ -5,5 +5,6 @@ public class Knight extends Piece {
         this.type = PieceType.KNIGHT;
         this.typeChar = 'N';
         this.isWhite = isWhite;
+        this.typeString = "knight";
     }
 }

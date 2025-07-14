@@ -13,6 +13,8 @@ public class Board {
         boardGrid = fillBoard(new Pawn(true));
     }
 
+    public Piece[][] getBoardGrid() {return boardGrid;}
+
     public Piece[][] fillBoard(Piece value) {
         Piece[][] grid = new Piece[boardSize][boardSize];
         for (int row = 0; row < boardSize; row++) {

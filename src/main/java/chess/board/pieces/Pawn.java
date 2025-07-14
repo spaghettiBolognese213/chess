@@ -5,5 +5,6 @@ public class Pawn extends Piece {
         this.type = PieceType.PAWN;
         this.typeChar = 'P';
         this.isWhite = isWhite;
+        this.typeString = "pawn";
     }
 }
