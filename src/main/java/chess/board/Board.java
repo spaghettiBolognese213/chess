@@ -45,6 +45,7 @@ public class Board {
         }
         else if (moveablePoints.contains(point) && !selectedPoint.equals(point)) {
             movePiece(boardGrid[selectedPoint.y][selectedPoint.x], selectedPoint, point);
+            selectedPoint = point;
             deselectSquare();
         }
         else if (hasSelected && !selectedPoint.equals(point)) { // reselect
