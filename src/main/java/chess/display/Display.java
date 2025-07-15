@@ -27,11 +27,6 @@ public class Display extends JFrame {
         historyPanel.add(new JLabel("Move History"));
 
         boardDisplay = new BoardDisplay();
-//        setContentPane(boardDisplay);
-
-//        add(historyPanel, BorderLayout.EAST);
-//        add(boardDisplay, BorderLayout.SOUTH);
-//        add(timerPanel, BorderLayout.NORTH);
 
         JPanel westContainer = new JPanel();
         westContainer.setLayout(new BorderLayout());
