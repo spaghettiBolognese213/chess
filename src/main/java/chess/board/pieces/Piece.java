@@ -28,7 +28,13 @@ public class Piece {
 
             else if ((tempPoint.x < boardGrid.length && tempPoint.x >= 0 && // within bounds
                     tempPoint.y < boardGrid.length && tempPoint.y >= 0) &&
-                    boardGrid[tempPoint.y][tempPoint.x].getType() != PieceType.EMPTY) return list;
+                    boardGrid[tempPoint.y][tempPoint.x].getType() != PieceType.EMPTY) {
+
+                if (boardGrid[tempPoint.y][tempPoint.x].isWhite != this.isWhite) {
+                    list.add(tempPoint);
+                }
+                return list;
+            }
         }
         return list;
     }
@@ -42,7 +48,8 @@ public class Piece {
                     moveablePoint.y + position.y);
             if (tempPoint.x < boardGrid.length && tempPoint.x >= 0 && // within bounds
                     tempPoint.y < boardGrid.length && tempPoint.y >= 0) {
-                if (boardGrid[tempPoint.y][tempPoint.x].getType() == PieceType.EMPTY) outputArray.add(tempPoint);
+                if (boardGrid[tempPoint.y][tempPoint.x].getType() == PieceType.EMPTY ||
+                        boardGrid[tempPoint.y][tempPoint.x].isWhite != this.isWhite) outputArray.add(tempPoint);
             }
         }
 
