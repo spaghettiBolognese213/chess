@@ -1,11 +1,24 @@
 package chess.board.pieces;
 
+import java.awt.*;
+import java.awt.Point;
+
 public class Piece {
     protected PieceType type;
     protected char typeChar;
     protected boolean isWhite;
     protected String typeString = null;
-    protected Boolean selected = false;
+
+    protected boolean selected = false;
+    protected Point[] moveablePoints;
+    protected boolean moveable = false;
+
+    public Point[] getMoveablePoints() {
+        if (moveablePoints == null) return null;
+        return moveablePoints;
+    }
+
+    public void setMoveable(Boolean value) {moveable = value;}
 
     public PieceType getType() {
         return type;
@@ -20,6 +33,10 @@ public class Piece {
     @Override
     public String toString() {
         return typeString;
+    }
+
+    public Boolean canMoveTo() {
+        return moveable;
     }
 
     public void setSelected(boolean value) {selected = value;}
