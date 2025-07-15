@@ -1,7 +1,9 @@
 package chess.board.pieces;
 
-import java.awt.*;
 import java.awt.Point;
+import java.util.List;
+import java.util.ArrayList;
+
 
 public class Piece {
     protected PieceType type;
@@ -13,9 +15,38 @@ public class Piece {
     protected Point[] moveablePoints;
     protected boolean moveable = false;
 
-    public Point[] getMoveablePoints() {
-        if (moveablePoints == null) return null;
-        return moveablePoints;
+    protected List<Point> getPointsUntilLimit(List<Point> list, Point position, int rowMultiplier, int colMultiplier, Piece[][] boardGrid) {
+        Point tempPoint;
+
+        for (int i = 1; i < boardGrid.length; i++) {
+            tempPoint = new Point(position.x + (i * rowMultiplier),
+                    position.y + (i * colMultiplier));
+
+            if ((tempPoint.x < boardGrid.length && tempPoint.x >= 0 && // within bounds
+                    tempPoint.y < boardGrid.length && tempPoint.y >= 0) &&
+                    boardGrid[tempPoint.y][tempPoint.x].getType() == PieceType.EMPTY) list.add(tempPoint);
+
+            else if ((tempPoint.x < boardGrid.length && tempPoint.x >= 0 && // within bounds
+                    tempPoint.y < boardGrid.length && tempPoint.y >= 0) &&
+                    boardGrid[tempPoint.y][tempPoint.x].getType() != PieceType.EMPTY) return list;
+        }
+        return list;
+    }
+
+    public Point[] getMoveablePoints(Point position, Piece[][] boardGrid) {
+        List<Point> outputArray = new ArrayList<>();
+        Point tempPoint;
+
+        for (Point moveablePoint : moveablePoints) {
+            tempPoint = new Point(moveablePoint.x + position.x,
+                    moveablePoint.y + position.y);
+            if (tempPoint.x < boardGrid.length && tempPoint.x >= 0 && // within bounds
+                    tempPoint.y < boardGrid.length && tempPoint.y >= 0) {
+                if (boardGrid[tempPoint.y][tempPoint.x].getType() == PieceType.EMPTY) outputArray.add(tempPoint);
+            }
+        }
+
+        return outputArray.toArray(new Point[0]);
     }
 
     public void setMoveable(Boolean value) {moveable = value;}
