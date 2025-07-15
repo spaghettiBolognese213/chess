@@ -20,28 +20,39 @@ public class Board {
         moveablePoints = new ArrayList<Point>();
     }
 
+    private void movePiece(Piece movingPiece, Point oldPoint, Point newPoint) {
+        clearMoveablePoints();
+        boardGrid[newPoint.y][newPoint.x] = movingPiece;
+        boardGrid[oldPoint.y][oldPoint.x] = new EmptyPiece(false);
+    }
+
+    private void deselectSquare() {
+        clearMoveablePoints();
+        boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
+        hasSelected = false;
+    }
+
+    private void selectSquare(Point newPoint) {
+        selectedPoint = newPoint;
+        boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
+        hasSelected = true;
+        setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
+    }
+
     public void handleSelected(Point point) {
         if (hasSelected && selectedPoint.equals(point)) { // deselect
-//            System.out.println("alpha");
-            clearMoveablePoints();
-            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
-            hasSelected = false;
+            deselectSquare();
+        }
+        else if (moveablePoints.contains(point) && !selectedPoint.equals(point)) {
+            movePiece(boardGrid[selectedPoint.y][selectedPoint.x], selectedPoint, point);
+            deselectSquare();
         }
         else if (hasSelected && !selectedPoint.equals(point)) { // reselect
-//            System.out.println("bravo");
-            clearMoveablePoints();
-            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
-
-            selectedPoint = point;
-            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
-            setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
+            deselectSquare();
+            selectSquare(point);
         }
         else if (!hasSelected) {
-//            System.out.println("charlie");
-            selectedPoint = point;
-            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
-            hasSelected = true;
-            setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
+            selectSquare(point);
         }
     }
 
