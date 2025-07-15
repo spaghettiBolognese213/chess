@@ -21,22 +21,15 @@ public class Board {
     }
 
     public void handleSelected(Point point) {
-//        Piece newSelected = boardGrid[point.y][point.x];
         if (hasSelected && selectedPoint.equals(point)) { // deselect
-            System.out.println("alpha");
+//            System.out.println("alpha");
             clearMoveablePoints();
             boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
             hasSelected = false;
-            // do nothing
         }
         else if (hasSelected && !selectedPoint.equals(point)) { // reselect
-            System.out.println("bravo");
+//            System.out.println("bravo");
             clearMoveablePoints();
-            // check if its within movement
-            // move
-            // deselect
-
-            //
             boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
 
             selectedPoint = point;
@@ -44,7 +37,7 @@ public class Board {
             setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
         }
         else if (!hasSelected) {
-            System.out.println("charlie");
+//            System.out.println("charlie");
             selectedPoint = point;
             boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
             hasSelected = true;
@@ -60,18 +53,11 @@ public class Board {
     }
 
     public void setMoveablePoints(Point currentPoint, Piece piece) {
-        Point[] pointArray = piece.getMoveablePoints();
-        Point tempPoint;
+        Point[] tempArray = piece.getMoveablePoints(currentPoint, boardGrid);
 
-        for (Point moveablePoint : pointArray) {
-            tempPoint = new Point(moveablePoint.x + currentPoint.x,
-                    moveablePoint.y + currentPoint.y);
-            if (tempPoint.x < boardSize && tempPoint.x >= 0 && // within bounds
-                    tempPoint.y < boardSize && tempPoint.y >= 0 ) {
-                boardGrid[tempPoint.y][tempPoint.x].setMoveable(true);
-                moveablePoints.add(tempPoint);
-//                System.out.println("RED: " + tempPoint.y + "," + tempPoint.x);
-            }
+        for (Point point : tempArray) {
+            boardGrid[point.y][point.x].setMoveable(true);
+            moveablePoints.add(point);
         }
     }
 
