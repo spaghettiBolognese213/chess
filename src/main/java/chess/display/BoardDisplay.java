@@ -93,8 +93,11 @@ public class BoardDisplay extends JPanel {
                 if (boardGrid[row][col] != null && boardGrid[row][col].getType() != PieceType.EMPTY)
                     placePiece(buildStringPiece(boardGrid[row][col]), row, col);
                 if (boardGrid[row][col].isSelected()) {
-                    System.out.println("highlight piece!");
+//                    System.out.println("highlight piece!");
                     boardSquares[row][col].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                }
+                else if (boardGrid[row][col].canMoveTo()) {
+                    boardSquares[row][col].setBorder(BorderFactory.createLineBorder(Color.red, 3));
                 }
                 else {boardSquares[row][col].setBorder(null);}
             }
