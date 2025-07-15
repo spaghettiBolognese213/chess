@@ -85,7 +85,7 @@ public class BoardDisplay extends JPanel {
     }
 
     public void drawPieces(Piece[][] boardGrid) {
-        System.out.println("entered drawPieces");
+//        System.out.println("entered drawPieces");
         this.clearBoard();
 
         for (int row = 0; row < BOARD_SIZE; row++) {
