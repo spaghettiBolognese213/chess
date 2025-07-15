@@ -2,15 +2,42 @@ package chess.board;
 
 import chess.board.pieces.*;
 import chess.json.BoardExtractor;
+import java.awt.Point;
 
 public class Board {
     Piece[][] boardGrid;
     int boardSize;
+    boolean hasSelected;
+    Point selectedPoint;
 
     public Board(int size) {
         boardSize = size;
         boardGrid = new Piece[size][size];
         boardGrid = fillBoard(new Pawn(true));
+    }
+
+    public void handleSelected(Point point) {
+//        Piece newSelected = boardGrid[point.y][point.x];
+        if (hasSelected && selectedPoint.equals(point)) { // deselect
+            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
+            // do nothing
+        }
+        else if (hasSelected && !selectedPoint.equals(point)) {
+            // check if its within movement
+            // move
+            // deselect
+
+            //
+            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
+
+            selectedPoint = point;
+            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
+        }
+        else if (!hasSelected) {
+            selectedPoint = point;
+            boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
+            hasSelected = true;
+        }
     }
 
     public Piece[][] getBoardGrid() {return boardGrid;}
