@@ -42,15 +42,8 @@ public class BoardExtractor {
             for (int j = 0; j < gridSize; j++) {
                 pieceId = stringArray[i][j].split(" ");
 
-                for (String item : pieceId) {
-                    System.out.println(item);
-                }
-
                 if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1]);
                 else outputArray[i][j] = stringToPiece(pieceId[0], "false");
-
-                System.out.println(outputArray[i][j].isWhite());
-                System.out.println();
             }
         }
         return outputArray;
