@@ -1,7 +1,5 @@
 package chess.board.pieces;
 
-//import PieceType
-
 public class Piece {
     protected PieceType type;
     protected char typeChar;
