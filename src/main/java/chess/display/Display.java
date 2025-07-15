@@ -1,7 +1,9 @@
 package chess.display;
 
 
+import chess.board.Board;
 import chess.board.pieces.Piece;
+import chess.userInput.UserInputHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +12,14 @@ public class Display extends JFrame {
     private BoardDisplay boardDisplay;
     private JPanel timerPanel;
     private JPanel historyPanel;
+    private UserInputHandler userInputHandler;
 
     public Display() {
         setTitle("Chess Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
+        setResizable(false);
 
+        // creating all panels
         timerPanel = new JPanel();
         timerPanel.setPreferredSize(new Dimension(800, 50));
         timerPanel.setBackground(Color.LIGHT_GRAY);
@@ -26,15 +30,20 @@ public class Display extends JFrame {
         historyPanel.setBackground(Color.WHITE);
         historyPanel.add(new JLabel("Move History"));
 
-        boardDisplay = new BoardDisplay();
+        // creating inputHandler
+        userInputHandler = new UserInputHandler();
 
+        boardDisplay = new BoardDisplay(null);
+        boardDisplay.setInputCallback(userInputHandler);
+
+        // structuring the panels
         JPanel westContainer = new JPanel();
         westContainer.setLayout(new BorderLayout());
         westContainer.add(boardDisplay, BorderLayout.CENTER);
         westContainer.add(timerPanel, BorderLayout.NORTH);
 
         JPanel centerContainer = new JPanel();
-        centerContainer.setLayout(new BorderLayout()); // Or new BoxLayout(BoxLayout.X_AXIS)
+        centerContainer.setLayout(new BorderLayout());
         centerContainer.add(westContainer, BorderLayout.CENTER);
         centerContainer.add(historyPanel, BorderLayout.EAST);
 
@@ -43,6 +52,11 @@ public class Display extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public void setBoard(Board newBoard) {
+        boardDisplay.setBoard(newBoard);
+        userInputHandler.setBoard(newBoard);
     }
 
     public void drawBoard(Piece[][] currentGrid) {

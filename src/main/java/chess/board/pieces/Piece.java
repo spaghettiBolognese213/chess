@@ -4,7 +4,8 @@ public class Piece {
     protected PieceType type;
     protected char typeChar;
     protected boolean isWhite;
-    protected String typeString;
+    protected String typeString = null;
+    protected Boolean selected = false;
 
     public PieceType getType() {
         return type;
@@ -19,6 +20,12 @@ public class Piece {
     @Override
     public String toString() {
         return typeString;
+    }
+
+    public void setSelected(boolean value) {selected = value;}
+
+    public boolean isSelected() {
+        return selected;
     }
 
     @Override

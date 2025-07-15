@@ -2,17 +2,25 @@ package chess.display;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import chess.board.pieces.*;
+import chess.userInput.InputCallback;
+import chess.board.Board;
 
 public class BoardDisplay extends JPanel {
     private static final int TILE_SIZE = 64;
     private static final int BOARD_SIZE = 8;
 
+    private InputCallback callback;
+
     private JPanel boardPanel;
     private JPanel[][] boardSquares = new JPanel[BOARD_SIZE][BOARD_SIZE];
 
-    public BoardDisplay() {
+    private Board board;
+
+    public BoardDisplay(Board newBoard) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(TILE_SIZE * BOARD_SIZE, TILE_SIZE * BOARD_SIZE));
 
@@ -20,6 +28,23 @@ public class BoardDisplay extends JPanel {
         initialiseBoard();
 
         add(boardPanel, BorderLayout.CENTER);
+
+        board = newBoard;
+    }
+
+    // input
+    public void setInputCallback(InputCallback callback) {
+        this.callback = callback;
+    }
+
+    private void handleClick(int row, int col) {
+        if (callback != null) {
+            callback.onSquareSelected(new Point(col, row));
+        }
+    }
+
+    public void setBoard(Board newBoard) {
+        board = newBoard;
     }
 
     public void clearBoard() {
@@ -38,6 +63,20 @@ public class BoardDisplay extends JPanel {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 JPanel square = new JPanel(new BorderLayout());
                 square.setBackground(isWhite ? Color.WHITE : new Color(0, 153, 153));
+
+
+                final int r = row;
+                final int c = col;
+                square.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        handleClick(r,c);
+                        System.out.println("board is " + (board == null ? "null" : "not null"));
+                        if (board != null) drawPieces(board.getBoardGrid());
+                    }
+                });
+
+
                 boardSquares[row][col] = square;
                 boardPanel.add(square);
                 isWhite = !isWhite;
@@ -46,12 +85,18 @@ public class BoardDisplay extends JPanel {
     }
 
     public void drawPieces(Piece[][] boardGrid) {
+        System.out.println("entered drawPieces");
         this.clearBoard();
 
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if (boardGrid[row][col] != null && boardGrid[row][col].getType() != PieceType.EMPTY)
                     placePiece(buildStringPiece(boardGrid[row][col]), row, col);
+                if (boardGrid[row][col].isSelected()) {
+                    System.out.println("highlight piece!");
+                    boardSquares[row][col].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+                }
+                else {boardSquares[row][col].setBorder(null);}
             }
         }
         boardPanel.revalidate();
@@ -79,6 +124,6 @@ public class BoardDisplay extends JPanel {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(BoardDisplay::new);
+        SwingUtilities.invokeLater(() -> new BoardDisplay(null));
     }
 }

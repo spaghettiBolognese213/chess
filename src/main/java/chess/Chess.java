@@ -16,7 +16,8 @@ public class Chess {
         boardExtractor = bExtractor;
         board.getGridFromSave(bExtractor);
         display = new Display();
-        boardDisplay = new BoardDisplay();
+        display.setBoard(board);
+        boardDisplay = new BoardDisplay(board);
     }
 
     public void play() {
