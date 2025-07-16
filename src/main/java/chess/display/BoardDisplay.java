@@ -5,9 +5,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import chess.board.BoardState;
 import chess.board.pieces.*;
 import chess.userInput.InputCallback;
-import chess.board.Board;
 
 public class BoardDisplay extends JPanel {
     private static final int TILE_SIZE = 64;
@@ -18,9 +18,9 @@ public class BoardDisplay extends JPanel {
     private JPanel boardPanel;
     private JPanel[][] boardSquares = new JPanel[BOARD_SIZE][BOARD_SIZE];
 
-    private Board board;
+    private BoardState boardState;
 
-    public BoardDisplay(Board newBoard) {
+    public BoardDisplay(BoardState newBoardState) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(TILE_SIZE * BOARD_SIZE, TILE_SIZE * BOARD_SIZE));
 
@@ -29,7 +29,7 @@ public class BoardDisplay extends JPanel {
 
         add(boardPanel, BorderLayout.CENTER);
 
-        board = newBoard;
+        boardState = newBoardState;
     }
 
     // input
@@ -43,8 +43,8 @@ public class BoardDisplay extends JPanel {
         }
     }
 
-    public void setBoard(Board newBoard) {
-        board = newBoard;
+    public void setBoard(BoardState newBoardState) {
+        boardState = newBoardState;
     }
 
     public void clearBoard() {
@@ -71,8 +71,8 @@ public class BoardDisplay extends JPanel {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         handleClick(r,c);
-                        System.out.println("board is " + (board == null ? "null" : "not null"));
-                        if (board != null) drawPieces(board.getBoardGrid());
+                        System.out.println("boardState is " + (boardState == null ? "null" : "not null"));
+                        if (boardState != null) drawPieces(boardState.getBoardGrid());
                     }
                 });
 

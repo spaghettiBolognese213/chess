@@ -2,19 +2,19 @@ package chess.userInput;
 
 import java.awt.Point;
 
-import chess.board.pieces.Piece;
-import chess.board.Board;
+import chess.board.BoardState;
 
 public class UserInputHandler implements InputCallback {
     private Point selectedSquare = null;
-    private Board board;
+    private BoardState boardState;
 
     @Override
     public void onSquareSelected(Point square) {
         System.out.println("point clicked at: (" + square.x + "," + square.y + ")");
 
-        board.handleSelected(square);
+        boardState.handleSelected(square);
     }
 
-    public void setBoard(Board newBoard) {board = newBoard;}
+    public void setBoard(BoardState newBoardState) {
+        boardState = newBoardState;}
 }
