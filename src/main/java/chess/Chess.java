@@ -1,28 +1,36 @@
 package chess;
 
-import chess.board.BoardState;
+import chess.board.pieces.Piece;
 import chess.display.*;
 import chess.json.*;
+import chess.Match;
 
-public class Chess {
-    private static int SIZE = 8;
-    BoardState boardState;
+public class Chess  {
     BoardExtractor boardExtractor;
     Display display;
     BoardDisplay boardDisplay;
+    Match currentMatch;
 
     public Chess(BoardExtractor bExtractor) {
-        boardState = new BoardState(SIZE);
         boardExtractor = bExtractor;
-        boardState.getGridFromSave(bExtractor);
         display = new Display();
-        display.setBoard(boardState);
-        boardDisplay = new BoardDisplay(boardState);
     }
 
     public void play() {
-        display.drawBoard(boardState.getBoardGrid());
+        loadMatch();
+        display.drawBoard(currentMatch.getBoardGrid());
 
         while (true);
+    }
+
+    public void loadMatch() {
+        currentMatch = new Match(getGridFromSave(boardExtractor));
+        display.setBoard(currentMatch.getBoardState());
+        display.drawBoard(currentMatch.getBoardGrid());
+        boardDisplay = new BoardDisplay(currentMatch.getBoardState());
+    }
+
+    public Piece[][] getGridFromSave(BoardExtractor boardExtractor) {
+        return boardExtractor.extractDefault();
     }
 }

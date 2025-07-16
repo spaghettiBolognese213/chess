@@ -71,7 +71,7 @@ public class BoardDisplay extends JPanel {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         handleClick(r,c);
-                        System.out.println("boardState is " + (boardState == null ? "null" : "not null"));
+//                        System.out.println("boardState is " + (boardState == null ? "null" : "not null"));
                         if (boardState != null) drawPieces(boardState.getBoardGrid());
                     }
                 });
@@ -85,7 +85,6 @@ public class BoardDisplay extends JPanel {
     }
 
     public void drawPieces(Piece[][] boardGrid) {
-//        System.out.println("entered drawPieces");
         this.clearBoard();
 
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -93,7 +92,6 @@ public class BoardDisplay extends JPanel {
                 if (boardGrid[row][col] != null && boardGrid[row][col].getType() != PieceType.EMPTY)
                     placePiece(buildStringPiece(boardGrid[row][col]), row, col);
                 if (boardGrid[row][col].isSelected()) {
-//                    System.out.println("highlight piece!");
                     boardSquares[row][col].setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
                 }
                 else if (boardGrid[row][col].canMoveTo()) {
