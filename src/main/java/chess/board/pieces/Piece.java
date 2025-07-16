@@ -15,6 +15,13 @@ public class Piece {
     protected Point[] moveablePoints;
     protected boolean moveable = false;
 
+    protected Point position;
+
+    public Piece(boolean newIsWhite, Point newPosition) {
+        isWhite = newIsWhite;
+        position = newPosition;
+    }
+
     protected List<Point> getPointsUntilLimit(List<Point> list, Point position, int rowMultiplier, int colMultiplier, Piece[][] boardGrid) {
         Point tempPoint;
 
