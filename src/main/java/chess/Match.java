@@ -32,26 +32,31 @@ public class Match {
         return boardState.getBoardGrid();
     }
 
+    private boolean isAllowedPiece(Piece selectedPiece, Piece clickedPiece, Point square) {
+        if (selectedPiece == null) {
+            if (clickedPiece == null || clickedPiece.isWhite() != whiteTurn) {
+                return false;
+            }
+        }
+
+        if (clickedPiece.getType() == PieceType.EMPTY && !boardState.getMoveablePoints().contains(square)) return false;
+
+        if (selectedPiece != null) {
+            boolean isReselectingOwnPiece = (clickedPiece != null && clickedPiece.isWhite()) == whiteTurn;
+            boolean isMoveAttempt = boardState.getMoveablePoints().contains(square);
+
+            if (!isReselectingOwnPiece && !isMoveAttempt) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void handleSelectSquare(Point square) {
         Piece clickedPiece = boardState.getPiece(square);
         Piece selectedPiece = boardState.getSelectedPiece();
 
-        if (selectedPiece == null) {
-            if (clickedPiece == null || clickedPiece.isWhite() != whiteTurn) {
-                return;
-            }
-        }
-
-        if (clickedPiece.getType() == PieceType.EMPTY && !boardState.getMoveablePoints().contains(square)) return;
-
-        if (selectedPiece != null) {
-            boolean isReselectingOwnPiece = clickedPiece != null && clickedPiece.isWhite() == whiteTurn;
-            boolean isMoveAttempt = boardState.getMoveablePoints().contains(square);
-
-            if (!isReselectingOwnPiece && !isMoveAttempt) {
-                return;
-            }
-        }
+        if (!isAllowedPiece(selectedPiece, clickedPiece, square)) return;
 
         boolean didMove = boardState.handleSelected(square);
         if (didMove) {
