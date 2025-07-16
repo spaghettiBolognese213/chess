@@ -7,7 +7,6 @@ import chess.board.BoardState;
 
 public class UserInputHandler implements InputCallback {
     private Point selectedSquare = null;
-//    private BoardState boardState;
     private Match match;
 
     @Override
