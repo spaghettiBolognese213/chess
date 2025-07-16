@@ -1,6 +1,7 @@
 package chess.display;
 
 
+import chess.Match;
 import chess.board.BoardState;
 import chess.board.pieces.Piece;
 import chess.userInput.UserInputHandler;
@@ -54,9 +55,9 @@ public class Display extends JFrame {
         setVisible(true);
     }
 
-    public void setBoard(BoardState newBoardState) {
-        boardDisplay.setBoard(newBoardState);
-        userInputHandler.setBoard(newBoardState);
+    public void setBoard(Match match) {
+        boardDisplay.setBoard(match.getBoardState());
+        userInputHandler.setMatch(match);
     }
 
     public void drawBoard(Piece[][] currentGrid) {

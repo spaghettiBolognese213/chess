@@ -3,6 +3,8 @@ package chess;
 import chess.board.*;
 import chess.board.pieces.Piece;
 
+import java.awt.*;
+
 public class Match {
     private static int SIZE = 8;
 
@@ -20,5 +22,9 @@ public class Match {
 
     public Piece[][] getBoardGrid() {
         return boardState.getBoardGrid();
+    }
+
+    public void handleSelectSquare(Point square) {
+        boardState.handleSelected(square);
     }
 }
