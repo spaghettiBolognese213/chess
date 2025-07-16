@@ -18,7 +18,6 @@ public class BoardState {
     public BoardState(int size) {
         boardSize = size;
         boardGrid = new Piece[size][size];
-        boardGrid = fillBoard(new Pawn(true));
         moveablePoints = new ArrayList<Point>();
     }
 
@@ -26,7 +25,7 @@ public class BoardState {
     private void movePiece(Piece movingPiece, Point oldPoint, Point newPoint) {
         clearMoveablePoints();
         boardGrid[newPoint.y][newPoint.x] = movingPiece;
-        boardGrid[oldPoint.y][oldPoint.x] = new EmptyPiece(false);
+        boardGrid[oldPoint.y][oldPoint.x] = new EmptyPiece(false, new Point(oldPoint.y, oldPoint.x));
     }
 
     private void deselectSquare() {
@@ -82,34 +81,6 @@ public class BoardState {
         return boardGrid[location.y][location.x];
     }
 
-    public String getBoardString() {
-        StringBuilder outputString = new StringBuilder();
-        String lineString = "———————————————————————————————————\n";
-
-        outputString.append("  ");
-        for (int i = 1; i <= boardSize; i++) {
-            outputString.append("| ").append(i).append(" ");
-        }
-        outputString.append(" \n");
-        outputString.append(lineString);
-
-        int baseAscii = 65;
-        String pieceIcon;
-        for (int i = 0; i < boardSize; i++) {
-            outputString.append((char) (baseAscii+i)).append(" ");
-            for (int j = 0; j < boardSize; j++) {
-
-                pieceIcon = boardGrid[i][j].getCharPiece().toString();
-                if (boardGrid[i][j].isWhite()) pieceIcon = pieceIcon.toLowerCase();
-
-                outputString.append("| ").append(pieceIcon).append(" ");
-            }
-            outputString.append("|\n");
-            outputString.append(lineString);
-        }
-        return outputString.toString();
-    }
-
     // board manipulation
     public void setMoveablePoints(Point currentPoint, Piece piece) {
         Point[] tempArray = piece.getMoveablePoints(currentPoint, boardGrid);
@@ -120,17 +91,21 @@ public class BoardState {
         }
     }
 
-    public Piece[][] fillBoard(Piece value) {
-        Piece[][] grid = new Piece[boardSize][boardSize];
+    public void setGrid(Piece[][] newGrid) {
+        boardGrid = newGrid;
+        boardSize = boardGrid.length;
+        Piece tempPiece;
+
         for (int row = 0; row < boardSize; row++) {
-            for (int collumn = 0; collumn < boardSize; collumn++) {
-                grid[row][collumn] = value;
+            for (int col = 0; col < boardSize; col++) {
+                tempPiece = boardGrid[row][col];
+
+                if (tempPiece.getType() != PieceType.EMPTY) {
+
+                }
             }
         }
-        return grid;
     }
-
-    public void setGrid(Piece[][] newGrid) {boardGrid = newGrid;}
 
     public List<Point> getMoveablePoints() {
         return moveablePoints;
