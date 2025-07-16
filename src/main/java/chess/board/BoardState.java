@@ -4,15 +4,16 @@ import chess.board.pieces.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class BoardState {
-    Piece[][] boardGrid;
-    int boardSize;
+    private Piece[][] boardGrid;
+    private int boardSize;
 
-    boolean hasSelected;
-    Point selectedPoint;
-    List<Point> moveablePoints;
+    private boolean hasSelected;
+    private Point selectedPoint;
+    private List<Point> moveablePoints;
 
     public BoardState(int size) {
         boardSize = size;
@@ -21,6 +22,7 @@ public class BoardState {
         moveablePoints = new ArrayList<Point>();
     }
 
+    // interaction
     private void movePiece(Piece movingPiece, Point oldPoint, Point newPoint) {
         clearMoveablePoints();
         boardGrid[newPoint.y][newPoint.x] = movingPiece;
@@ -31,6 +33,7 @@ public class BoardState {
         clearMoveablePoints();
         boardGrid[selectedPoint.y][selectedPoint.x].setSelected(false);
         hasSelected = false;
+        selectedPoint = null;
     }
 
     private void selectSquare(Point newPoint) {
@@ -40,7 +43,7 @@ public class BoardState {
         setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
     }
 
-    public void handleSelected(Point point) {
+    public boolean handleSelected(Point point) {
         if (hasSelected && selectedPoint.equals(point)) { // deselect
             deselectSquare();
         }
@@ -48,6 +51,7 @@ public class BoardState {
             movePiece(boardGrid[selectedPoint.y][selectedPoint.x], selectedPoint, point);
             selectedPoint = point;
             deselectSquare();
+            return true;
         }
         else if (hasSelected && !selectedPoint.equals(point)) { // reselect
             deselectSquare();
@@ -56,6 +60,7 @@ public class BoardState {
         else if (!hasSelected) {
             selectSquare(point);
         }
+        return false;
     }
 
     public void clearMoveablePoints() {
@@ -65,28 +70,17 @@ public class BoardState {
         moveablePoints.clear();
     }
 
-    public void setMoveablePoints(Point currentPoint, Piece piece) {
-        Point[] tempArray = piece.getMoveablePoints(currentPoint, boardGrid);
-
-        for (Point point : tempArray) {
-            boardGrid[point.y][point.x].setMoveable(true);
-            moveablePoints.add(point);
-        }
-    }
-
+    // getters
     public Piece[][] getBoardGrid() {return boardGrid;}
 
-    public Piece[][] fillBoard(Piece value) {
-        Piece[][] grid = new Piece[boardSize][boardSize];
-        for (int row = 0; row < boardSize; row++) {
-            for (int collumn = 0; collumn < boardSize; collumn++) {
-                grid[row][collumn] = value;
-            }
-        }
-        return grid;
+    public Piece getSelectedPiece() {
+        if (selectedPoint != null) return getPiece(selectedPoint);
+        else return null;
     }
 
-    public void setGrid(Piece[][] newGrid) {boardGrid = newGrid;}
+    public Piece getPiece(Point location) {
+        return boardGrid[location.y][location.x];
+    }
 
     public String getBoardString() {
         StringBuilder outputString = new StringBuilder();
@@ -114,5 +108,31 @@ public class BoardState {
             outputString.append(lineString);
         }
         return outputString.toString();
+    }
+
+    // board manipulation
+    public void setMoveablePoints(Point currentPoint, Piece piece) {
+        Point[] tempArray = piece.getMoveablePoints(currentPoint, boardGrid);
+
+        for (Point point : tempArray) {
+            boardGrid[point.y][point.x].setMoveable(true);
+            moveablePoints.add(point);
+        }
+    }
+
+    public Piece[][] fillBoard(Piece value) {
+        Piece[][] grid = new Piece[boardSize][boardSize];
+        for (int row = 0; row < boardSize; row++) {
+            for (int collumn = 0; collumn < boardSize; collumn++) {
+                grid[row][collumn] = value;
+            }
+        }
+        return grid;
+    }
+
+    public void setGrid(Piece[][] newGrid) {boardGrid = newGrid;}
+
+    public List<Point> getMoveablePoints() {
+        return moveablePoints;
     }
 }

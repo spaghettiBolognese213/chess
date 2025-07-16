@@ -71,7 +71,6 @@ public class BoardDisplay extends JPanel {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         handleClick(r,c);
-//                        System.out.println("boardState is " + (boardState == null ? "null" : "not null"));
                         if (boardState != null) drawPieces(boardState.getBoardGrid());
                     }
                 });
