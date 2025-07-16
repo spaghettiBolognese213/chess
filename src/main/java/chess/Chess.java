@@ -25,7 +25,7 @@ public class Chess  {
 
     public void loadMatch() {
         currentMatch = new Match(getGridFromSave(boardExtractor));
-        display.setBoard(currentMatch.getBoardState());
+        display.setBoard(currentMatch);
         display.drawBoard(currentMatch.getBoardGrid());
         boardDisplay = new BoardDisplay(currentMatch.getBoardState());
     }
