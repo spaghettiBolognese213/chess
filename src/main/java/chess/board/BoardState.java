@@ -1,7 +1,7 @@
 package chess.board;
 
 import chess.board.pieces.*;
-import chess.json.BoardExtractor;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,10 +86,7 @@ public class BoardState {
         return grid;
     }
 
-    public void getGridFromSave(BoardExtractor boardExtractor) {
-        Piece[][] newGrid = boardExtractor.extractDefault();
-        boardGrid = newGrid; // maybe has different size
-    }
+    public void setGrid(Piece[][] newGrid) {boardGrid = newGrid;}
 
     public String getBoardString() {
         StringBuilder outputString = new StringBuilder();
