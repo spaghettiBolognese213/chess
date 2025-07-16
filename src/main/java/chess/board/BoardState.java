@@ -6,14 +6,15 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class BoardState {
     Piece[][] boardGrid;
     int boardSize;
+
     boolean hasSelected;
     Point selectedPoint;
     List<Point> moveablePoints;
 
-    public Board(int size) {
+    public BoardState(int size) {
         boardSize = size;
         boardGrid = new Piece[size][size];
         boardGrid = fillBoard(new Pawn(true));

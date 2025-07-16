@@ -1,27 +1,27 @@
 package chess;
 
-import chess.board.Board;
+import chess.board.BoardState;
 import chess.display.*;
 import chess.json.*;
 
 public class Chess {
     private static int SIZE = 8;
-    Board board;
+    BoardState boardState;
     BoardExtractor boardExtractor;
     Display display;
     BoardDisplay boardDisplay;
 
     public Chess(BoardExtractor bExtractor) {
-        board = new Board(SIZE);
+        boardState = new BoardState(SIZE);
         boardExtractor = bExtractor;
-        board.getGridFromSave(bExtractor);
+        boardState.getGridFromSave(bExtractor);
         display = new Display();
-        display.setBoard(board);
-        boardDisplay = new BoardDisplay(board);
+        display.setBoard(boardState);
+        boardDisplay = new BoardDisplay(boardState);
     }
 
     public void play() {
-        display.drawBoard(board.getBoardGrid());
+        display.drawBoard(boardState.getBoardGrid());
 
         while (true);
     }

@@ -10,8 +10,8 @@ class BoardTest {
     @Test
     public void fillBoardEmpty() {
         int boardSize = 8;
-        Board board = new Board(boardSize);
-        Piece[][] actualGrid = board.fillBoard(new EmptyPiece(false));
+        BoardState boardState = new BoardState(boardSize);
+        Piece[][] actualGrid = boardState.fillBoard(new EmptyPiece(false));
 
         assertAll(() -> {
             for (int row = 0; row < boardSize; row++) {
@@ -25,8 +25,8 @@ class BoardTest {
     @Test
     public void fillBoardAllKings() {
         int boardSize = 8;
-        Board board = new Board(boardSize);
-        Piece[][] actualGrid = board.fillBoard(new King(true));
+        BoardState boardState = new BoardState(boardSize);
+        Piece[][] actualGrid = boardState.fillBoard(new King(true));
 
         assertAll(() -> {
             for (int row = 0; row < boardSize; row++) {
@@ -40,8 +40,8 @@ class BoardTest {
     @Test
     public void printTestAllPawns() {
         int boardSize = 8;
-        Board board = new Board(boardSize);
-        board.fillBoard(new Pawn(true));
+        BoardState boardState = new BoardState(boardSize);
+        boardState.fillBoard(new Pawn(true));
 
         String expectedString =
                 "  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8  \n" +
@@ -63,7 +63,7 @@ class BoardTest {
                 "H | p | p | p | p | p | p | p | p |\n" +
                 "———————————————————————————————————\n";
 
-        String actualString = board.getBoardString();
+        String actualString = boardState.getBoardString();
         assertEquals(expectedString, actualString);
     }
 }
