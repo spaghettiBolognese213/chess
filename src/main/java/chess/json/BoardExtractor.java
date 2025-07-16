@@ -1,5 +1,6 @@
 package chess.json;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,24 +42,24 @@ public class BoardExtractor {
             for (int j = 0; j < gridSize; j++) {
                 pieceId = stringArray[i][j].split(" ");
 
-                if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1]);
-                else outputArray[i][j] = stringToPiece(pieceId[0], "false");
+                if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1], new Point(j, i));
+                else outputArray[i][j] = stringToPiece(pieceId[0], "false", new Point(j, i));
             }
         }
         return outputArray;
     }
 
-    private Piece stringToPiece(String string, String colourId) {
+    private Piece stringToPiece(String string, String colourId, Point position) {
         boolean isWhite = (colourId.equals("W"));
 
         return switch (string) {
-            case "BISHOP" -> new Bishop(isWhite);
-            case "EMPTY" -> new EmptyPiece(isWhite);
-            case "KING" -> new King(isWhite);
-            case "KNIGHT" -> new Knight(isWhite);
-            case "PAWN" -> new Pawn(isWhite);
-            case "QUEEN" -> new Queen(isWhite);
-            case "ROOK" -> new Rook(isWhite);
+            case "BISHOP" -> new Bishop(isWhite, position);
+            case "EMPTY" -> new EmptyPiece(isWhite, position);
+            case "KING" -> new King(isWhite, position);
+            case "KNIGHT" -> new Knight(isWhite, position);
+            case "PAWN" -> new Pawn(isWhite, position);
+            case "QUEEN" -> new Queen(isWhite, position);
+            case "ROOK" -> new Rook(isWhite, position);
             default -> throw new IllegalStateException("Unexpected value: " + string);
         };
     }

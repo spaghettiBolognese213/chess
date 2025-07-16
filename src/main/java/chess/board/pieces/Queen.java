@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Queen extends Piece {
-    public Queen(boolean isWhite) {
+    public Queen(boolean isWhite, Point position) {
+        super(isWhite, position);
         this.type = PieceType.QUEEN;
         this.typeChar = 'Q';
-        this.isWhite = isWhite;
+//        this.isWhite = isWhite;
         this.typeString = "queen";
     }
 

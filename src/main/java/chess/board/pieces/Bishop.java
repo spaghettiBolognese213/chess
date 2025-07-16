@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends Piece {
-    public Bishop(boolean isWhite) {
+    public Bishop(boolean isWhite, Point position) {
+        super(isWhite, position);
         this.type = PieceType.BISHOP;
         this.typeChar = 'B';
-        this.isWhite = isWhite;
+//        this.isWhite = isWhite;
         this.typeString = "bishop";
     }
 

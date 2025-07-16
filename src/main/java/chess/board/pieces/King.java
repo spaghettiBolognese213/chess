@@ -3,10 +3,11 @@ package chess.board.pieces;
 import java.awt.*;
 
 public class King extends Piece {
-    public King(boolean isWhite) {
+    public King(boolean isWhite, Point position) {
+        super(isWhite, position);
         this.type = PieceType.KING;
         this.typeChar = 'K';
-        this.isWhite = isWhite;
+//        this.isWhite = isWhite;
         this.typeString = "king";
         this.moveablePoints = new Point[]{
                 new Point(1,0),

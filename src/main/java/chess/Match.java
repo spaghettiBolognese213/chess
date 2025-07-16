@@ -52,11 +52,18 @@ public class Match {
         return true;
     }
 
+    private boolean isCheck() {
+
+        return false;
+    }
+
     public void handleSelectSquare(Point square) {
         Piece clickedPiece = boardState.getPiece(square);
         Piece selectedPiece = boardState.getSelectedPiece();
 
         if (!isAllowedPiece(selectedPiece, clickedPiece, square)) return;
+
+
 
         boolean didMove = boardState.handleSelected(square);
         if (didMove) {

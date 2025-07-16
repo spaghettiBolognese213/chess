@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pawn extends Piece {
-    public Pawn(boolean isWhite) {
+    public Pawn(boolean isWhite, Point position) {
+        super(isWhite, position);
         this.type = PieceType.PAWN;
         this.typeChar = 'P';
-        this.isWhite = isWhite;
+//        this.isWhite = isWhite;
         this.typeString = "pawn";
 
         this.moveablePoints = new Point[]{new Point(0, 1), new Point(0, 2)};

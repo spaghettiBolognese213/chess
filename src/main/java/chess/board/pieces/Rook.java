@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rook extends Piece {
-    public Rook(boolean isWhite) {
+    public Rook(boolean isWhite, Point position) {
+        super(isWhite, position);
         this.type = PieceType.ROOK;
         this.typeChar = 'R';
-        this.isWhite = isWhite;
+//        this.isWhite = isWhite;
         this.typeString = "rook";
     }
 
