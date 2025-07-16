@@ -15,10 +15,18 @@ public class BoardState {
     private Point selectedPoint;
     private List<Point> moveablePoints;
 
+    private List<Piece> allWhitePieces;
+    private List<Piece> allBlackPieces;
+    private int whiteKingIndex;
+    private int blackKingIndex;
+
     public BoardState(int size) {
         boardSize = size;
         boardGrid = new Piece[size][size];
         moveablePoints = new ArrayList<Point>();
+
+        allWhitePieces = new ArrayList<Piece>();
+        allBlackPieces = new ArrayList<Piece>();
     }
 
     // interaction
@@ -81,6 +89,10 @@ public class BoardState {
         return boardGrid[location.y][location.x];
     }
 
+    public List<Piece> getWhitePieces() {return allWhitePieces;}
+
+    public List<Piece> getBlackPieces() {return allBlackPieces;}
+
     // board manipulation
     public void setMoveablePoints(Point currentPoint, Piece piece) {
         Point[] tempArray = piece.getMoveablePoints(currentPoint, boardGrid);
@@ -92,6 +104,9 @@ public class BoardState {
     }
 
     public void setGrid(Piece[][] newGrid) {
+        allWhitePieces.clear();
+        allBlackPieces.clear();
+
         boardGrid = newGrid;
         boardSize = boardGrid.length;
         Piece tempPiece;
@@ -100,8 +115,15 @@ public class BoardState {
             for (int col = 0; col < boardSize; col++) {
                 tempPiece = boardGrid[row][col];
 
-                if (tempPiece.getType() != PieceType.EMPTY) {
-
+                if (tempPiece.getType() != PieceType.EMPTY){
+                    if (tempPiece.isWhite()) {
+                        allWhitePieces.add(tempPiece);
+                        if (tempPiece.getType() == PieceType.KING) whiteKingIndex = allWhitePieces.size() - 1;
+                    }
+                    else if (!tempPiece.isWhite()) {
+                        allBlackPieces.add(tempPiece);
+                        if (tempPiece.getType() == PieceType.KING) blackKingIndex = allBlackPieces.size() - 1;
+                    }
                 }
             }
         }
