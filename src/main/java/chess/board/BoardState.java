@@ -4,7 +4,6 @@ import chess.board.pieces.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class BoardState {
@@ -17,8 +16,8 @@ public class BoardState {
 
     private List<Piece> allWhitePieces;
     private List<Piece> allBlackPieces;
-    private int whiteKingIndex;
-    private int blackKingIndex;
+    private Piece whiteKing;
+    private Piece blackKing;
 
     public BoardState(int size) {
         boardSize = size;
@@ -32,6 +31,7 @@ public class BoardState {
     // interaction
     private void movePiece(Piece movingPiece, Point oldPoint, Point newPoint) {
         clearMoveablePoints();
+        movingPiece.setPosition(newPoint);
         boardGrid[newPoint.y][newPoint.x] = movingPiece;
         boardGrid[oldPoint.y][oldPoint.x] = new EmptyPiece(false, new Point(oldPoint.y, oldPoint.x));
     }
@@ -89,9 +89,13 @@ public class BoardState {
         return boardGrid[location.y][location.x];
     }
 
-    public List<Piece> getWhitePieces() {return allWhitePieces;}
+    public List<Piece> getWhitePieces(boolean white) {
+        return (white ? allWhitePieces : allBlackPieces);
+    }
 
-    public List<Piece> getBlackPieces() {return allBlackPieces;}
+    public Piece getKing(boolean white) {
+        return (white ? whiteKing : blackKing);
+    }
 
     // board manipulation
     public void setMoveablePoints(Point currentPoint, Piece piece) {
@@ -115,14 +119,41 @@ public class BoardState {
             for (int col = 0; col < boardSize; col++) {
                 tempPiece = boardGrid[row][col];
 
+//                if (tempPiece.getType() != PieceType.EMPTY){
+//                    if (tempPiece.isWhite()) {
+//                        allWhitePieces.add(tempPiece);
+//                        if (tempPiece.getType() == PieceType.KING) whiteKing = tempPiece;
+//                    }
+//                    else if (!tempPiece.isWhite()) {
+//                        allBlackPieces.add(tempPiece);
+//                        if (tempPiece.getType() == PieceType.KING) blackKing = tempPiece;
+//                    }
+//                }
+            }
+        }
+
+        buildPieceLists();
+    }
+
+    public void buildPieceLists() {
+        allBlackPieces.clear();
+        allWhitePieces.clear();
+
+        boardSize = boardGrid.length;
+        Piece tempPiece;
+
+        for (int row = 0; row < boardSize; row++) {
+            for (int col = 0; col < boardSize; col++) {
+                tempPiece = boardGrid[row][col];
+
                 if (tempPiece.getType() != PieceType.EMPTY){
                     if (tempPiece.isWhite()) {
                         allWhitePieces.add(tempPiece);
-                        if (tempPiece.getType() == PieceType.KING) whiteKingIndex = allWhitePieces.size() - 1;
+                        if (tempPiece.getType() == PieceType.KING) whiteKing = tempPiece;
                     }
                     else if (!tempPiece.isWhite()) {
                         allBlackPieces.add(tempPiece);
-                        if (tempPiece.getType() == PieceType.KING) blackKingIndex = allBlackPieces.size() - 1;
+                        if (tempPiece.getType() == PieceType.KING) blackKing = tempPiece;
                     }
                 }
             }
