@@ -46,6 +46,10 @@ public class Piece {
         return list;
     }
 
+    public Point getPosition() {return position;}
+
+    public void setPosition(Point newPosition) {position = newPosition;}
+
     public Point[] getMoveablePoints(Point position, Piece[][] boardGrid) {
         List<Point> outputArray = new ArrayList<>();
         Point tempPoint;
