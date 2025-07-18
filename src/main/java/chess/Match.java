@@ -15,6 +15,8 @@ public class Match {
     private List<BoardState> stateList;
 
     private Boolean whiteTurn;
+    private Boolean whiteInCheck;
+    private Boolean blackInCheck;
 
     public Match(Piece[][] boardGrid) {
         boardState = new BoardState(SIZE);
@@ -92,27 +94,24 @@ public class Match {
 
         boolean didMove = boardState.handleSelected(square);
         if (didMove) {
-            whiteTurn = !whiteTurn;
             stateList.add(boardState); // maybe make a deep copy here
 
             boardState.buildPieceLists();
 
-            Point kingPosition;
             List<Piece> attackingPieces;
             Piece king;
 
-            if (whiteTurn) {
-                // Black just moved, so white is defending
-                attackingPieces = boardState.getWhitePieces(false); // Black pieces
-                king = boardState.getKing(true); // White king
-            } else {
-                attackingPieces = boardState.getWhitePieces(true); // White pieces
-                king = boardState.getKing(false); // Black king
-            }
+            attackingPieces = boardState.getWhitePieces(whiteTurn);
+            king = boardState.getKing(!whiteTurn);
 
             if (isCheck(king, attackingPieces)) {
+                if (!whiteTurn) {
+                    whiteInCheck = true;
+                }
+                else { blackInCheck = true; }
                 System.out.println("CHECK!");
             }
+            whiteTurn = !whiteTurn;
         }
     }
 }
