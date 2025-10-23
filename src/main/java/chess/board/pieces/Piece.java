@@ -50,6 +50,16 @@ public class Piece {
 
     public void setPosition(Point newPosition) {position = newPosition;}
 
+    public boolean canMove(Piece[][] boardGrid, List<Point> attackedPositions) {
+        Point[] possiblePoints = this.getMoveablePoints(position, boardGrid);
+
+        for (Point point : possiblePoints) {
+            if (!attackedPositions.contains(point)) return true;
+        }
+
+        return false;
+    }
+
     public Point[] getMoveablePoints(Point position, Piece[][] boardGrid) {
         List<Point> outputArray = new ArrayList<>();
         Point tempPoint;
