@@ -22,6 +22,23 @@ public class Piece {
         position = newPosition;
     }
 
+    public Piece copy() {
+        Piece newPiece = new Piece(isWhite, new Point(this.getPosition().x, this.getPosition().y));
+        newPiece.typeChar = typeChar;
+        newPiece.typeString = typeString;
+        newPiece.selected = selected;
+        newPiece.moveable = moveable;
+
+        if (this.moveablePoints != null) {
+            newPiece.moveablePoints = new Point[moveablePoints.length];
+            for (int i = 0; i < moveablePoints.length; i++) {
+                newPiece.moveablePoints[i] = moveablePoints[i];
+            }
+        }
+
+        return newPiece;
+    }
+
     protected List<Point> getPointsUntilLimit(List<Point> list, Point position, int rowMultiplier, int colMultiplier, Piece[][] boardGrid) {
         Point tempPoint;
 
