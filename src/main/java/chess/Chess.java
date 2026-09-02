@@ -31,6 +31,8 @@ public class Chess  {
     }
 
     public Piece[][] getGridFromSave(BoardExtractor boardExtractor) {
-        return boardExtractor.extractDefault();
+        Piece[][] result = boardExtractor.extractDefault();;
+
+        return result;
     }
 }

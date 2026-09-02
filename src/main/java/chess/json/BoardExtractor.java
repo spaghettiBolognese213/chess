@@ -43,7 +43,7 @@ public class BoardExtractor {
                 pieceId = stringArray[i][j].split(" ");
 
                 if (!pieceId[0].equals("EMPTY")) outputArray[i][j] = stringToPiece(pieceId[0], pieceId[1], new Point(j, i));
-                else outputArray[i][j] = stringToPiece(pieceId[0], "false", new Point(j, i));
+                else outputArray[i][j] = stringToPiece(pieceId[0], "W", new Point(j, i));
             }
         }
         return outputArray;
@@ -51,7 +51,6 @@ public class BoardExtractor {
 
     private Piece stringToPiece(String string, String colourId, Point position) {
         boolean isWhite = (colourId.equals("W"));
-
         return switch (string) {
             case "BISHOP" -> new Bishop(isWhite, position);
             case "EMPTY" -> new EmptyPiece(isWhite, position);
