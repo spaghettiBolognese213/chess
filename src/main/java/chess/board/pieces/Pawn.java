@@ -21,8 +21,6 @@ public class Pawn extends Piece {
 
     @Override
     public Point[] getMoveablePoints(Point position, Piece[][] boardGrid) {
-        System.out.println();
-        System.out.println("original position: " + position);
 
         List<Point> outputArray = new ArrayList<Point>();
         int multiplier = (isWhite) ? 1 : -1;
