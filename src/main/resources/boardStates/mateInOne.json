@@ -1,0 +1,12 @@
+{
+  "boardState": [
+    ["EMPTY", "KING W", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["PAWN W", "PAWN W", "PAWN W", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "KNIGHT W", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "KING B", "EMPTY", "ROOK B", "EMPTY"],
+    ["EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY", "EMPTY"]
+  ]
+}

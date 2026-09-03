@@ -13,8 +13,8 @@ public class BoardExtractor {
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            InputStream inputStream = BoardExtractor.class.getClassLoader()
-                    .getResourceAsStream("boardStates/defaultBoard.json");
+            InputStream inputStream = BoardExtractor.class.getClassLoader().
+                  getResourceAsStream("boardStates/defaultBoard.json");
 
 
             if (inputStream == null) {
