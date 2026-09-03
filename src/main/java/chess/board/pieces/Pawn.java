@@ -9,10 +9,9 @@ public class Pawn extends Piece {
         super(isWhite, position);
         this.type = PieceType.PAWN;
         this.typeChar = 'P';
-//        this.isWhite = isWhite;
         this.typeString = "pawn";
 
-        this.moveablePoints = new Point[]{new Point(0, 1), new Point(0, 2)};
+        moveablePoints = null;
     }
 
     private boolean isOnStartingPosition(Point position) {
@@ -20,21 +19,16 @@ public class Pawn extends Piece {
                 (!isWhite() && position.y == 6);
     }
 
-//    private void addDiagonalMoves(List<Point> list, Point position, Piece[][] boardGrid) {
-//        int multiplier = (isWhite) ? 1 : -1;
-//        Point tempPoint = new Point(position.x + 1, position.y + multiplier);
-//        if (boardGrid[tempPoint.y][tempPoint.x].isWhite != this.isWhite) list.add(tempPoint);
-//        tempPoint = new Point(position.x - 1, position.y + multiplier);
-//        if (boardGrid[tempPoint.y][tempPoint.x].isWhite != this.isWhite) list.add(tempPoint);
-//    }
-
     @Override
     public Point[] getMoveablePoints(Point position, Piece[][] boardGrid) {
+        System.out.println();
+        System.out.println("original position: " + position);
+
         List<Point> outputArray = new ArrayList<Point>();
         int multiplier = (isWhite) ? 1 : -1;
         int boardSize = boardGrid.length;
 
-
+        // right
         Point tempPoint = new Point(position.x + 1, position.y + multiplier);
         if (tempPoint.x >= 0 && tempPoint.x < boardSize
                 && tempPoint.y >= 0 && tempPoint.y < boardSize) {
@@ -44,6 +38,7 @@ public class Pawn extends Piece {
                     targetPiece.isWhite != this.isWhite) outputArray.add(tempPoint);
         }
 
+        // left
         tempPoint = new Point(position.x - 1, position.y + multiplier);
         if (tempPoint.x >= 0 && tempPoint.x < boardSize
                 && tempPoint.y >= 0 && tempPoint.y < boardSize) {
@@ -67,5 +62,13 @@ public class Pawn extends Piece {
         outputArray.add(tempPoint);
 
         return outputArray.toArray(new Point[0]);
+    }
+
+    public Piece copy() {
+        Pawn newPiece = new Pawn(isWhite, new Point(this.getPosition().x, this.getPosition().y));
+        newPiece.selected = selected;
+        newPiece.moveable = moveable;
+
+        return newPiece;
     }
 }
