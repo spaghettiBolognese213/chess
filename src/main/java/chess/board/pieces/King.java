@@ -20,4 +20,13 @@ public class King extends Piece {
                 new Point(1,-1)
         };
     }
+
+    public Piece copy() {
+        King newPiece = new King(isWhite, new Point(this.getPosition().x, this.getPosition().y));
+        newPiece.selected = selected;
+        newPiece.moveable = moveable;
+
+        return newPiece;
+    }
+
 }

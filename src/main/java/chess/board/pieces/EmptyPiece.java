@@ -13,9 +13,6 @@ public class EmptyPiece extends Piece{
     @Override
     public Piece copy() {
         EmptyPiece newPiece = new EmptyPiece(false, this.position);
-        newPiece.type = PieceType.EMPTY;
-        newPiece.typeChar = ' ';
-        newPiece.typeString = this.typeString;
         return newPiece;
     }
 }

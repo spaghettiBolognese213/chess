@@ -20,4 +20,12 @@ public class Knight extends Piece {
                 new Point(-1, -2)
         };
     }
+
+    public Piece copy() {
+        Knight newPiece = new Knight(isWhite, new Point(this.getPosition().x, this.getPosition().y));
+        newPiece.selected = selected;
+        newPiece.moveable = moveable;
+
+        return newPiece;
+    }
 }

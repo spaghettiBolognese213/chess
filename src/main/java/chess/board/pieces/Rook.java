@@ -11,6 +11,7 @@ public class Rook extends Piece {
         this.typeChar = 'R';
 //        this.isWhite = isWhite;
         this.typeString = "rook";
+        moveablePoints = null;
     }
 
     @Override
@@ -23,5 +24,17 @@ public class Rook extends Piece {
         getPointsUntilLimit(outputArray, position, 0,-1, boardGrid);
 
         return outputArray.toArray(new Point[0]);
+    }
+
+    @Override
+    public Piece copy() {
+        Rook newPiece = new Rook(isWhite, new Point(this.getPosition().x, this.getPosition().y));
+        newPiece.selected = selected;
+        newPiece.moveable = moveable;
+
+        if (this.moveablePoints != null)
+            System.out.println("moveable is not null");
+
+        return newPiece;
     }
 }
