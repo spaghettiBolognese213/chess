@@ -81,78 +81,40 @@ public class Match {
     }
 
     private boolean isMate(Piece king, List<Piece> attackers) {
-        List<Point> attackedPoints = attackedPositions(attackers);
-        Point[] movablePointsKing = king.getMoveablePoints(king.getPosition(),getBoardState().getBoardGrid());
+//        List<Point> attackedPoints = attackedPositions(attackers);
+//        Point[] movablePointsKing = king.getMoveablePoints(king.getPosition(),getBoardState().getBoardGrid());
         List<Piece> defenders = boardState.getWhitePieces(!whiteTurn);
-//        System.out.println("inside isMate");
-        int counter = 0;
 
         for (Piece defender : defenders) { // loops through all possible moves
-//            System.out.println();
-//            System.out.printf("selected: %s on (%d,%d)\n", defender, defender.getPosition().x, defender.getPosition().y);
             for (Point moveable : defender.getMoveablePoints(defender.getPosition(), boardState.getBoardGrid())) {
-//                if (defender.getType() == PieceType.KING)
-//                    System.out.println();
-//                System.out.println();
-//                System.out.printf("selected per move: %s on (%d,%d)\n", defender, defender.getPosition().x, defender.getPosition().y);
-//                counter++;
-//                System.out.println(counter);
 
-                BoardState tempState = boardState.copy(); // copies boardstate
-
+                BoardState tempState = boardState.copy();
 
                 Piece tempDefender = tempState.getPiece(defender.getPosition());
-//                System.out.printf("copied: %s on (%d,%d)\n", tempDefender, tempDefender.getPosition().x, tempDefender.getPosition().y);
 
                 if (tempDefender.getType() == PieceType.EMPTY) {
-//                    System.out.println("incorrect copy");
                     continue;
                 }
-//                tempState.forceMove(tempDefender, moveable); // should do move on temp board
                 tempState.forceMove(tempDefender, new Point(moveable.x, moveable.y));
-
-
-//                System.out.printf("selected after force: %s on (%d,%d)\n", defender, defender.getPosition().x, defender.getPosition().y);
-//                System.out.printf("copied after force: %s on (%d,%d)\n", tempDefender, tempDefender.getPosition().x, tempDefender.getPosition().y);
 
                 List<Piece> tempAttackers = tempState.getWhitePieces(whiteTurn);
                 Piece tempKing = (tempDefender.getType() == PieceType.KING) ? tempDefender : tempState.getKing(!whiteTurn);
 
-//                for (Piece piece : tempAttackers) {
-//                    System.out.println(piece.toString() + " on (" + piece.getPosition().x + ", " + piece.getPosition().y + ")");
-//                }
-
-//                System.out.printf("changed (%s (%d,%d)) with move: + (%d,%d)\n",
-//                        tempDefender, tempDefender.getPosition().x, tempDefender.getPosition().y,
-//                        moveable.x, moveable.y);
-//                tempState.printBoard();
-
                 if (!isCheck(tempKing, tempAttackers, tempState.getBoardGrid())) {
-//                    tempState.printBoard();
-//                    System.out.println("not checkmate");
                     return false;
                 }
             }
         }
 
-        // check attacked squares
-//        king.canMove(boardState.getBoardGrid(), attackedPoints);
-
-        // get all pieces that attack King
-        // get all pieces that can block attacker
-        // check if blocked also is still check
         System.out.println("Check mate");
         return true;
     }
 
-    // TODO problem is wrong boardstate
     private boolean isCheck(Piece king, List<Piece> attackingPieces, Piece[][] grid) {
         if (king == null) return false; // defensive check
         if (grid == null) grid = boardState.getBoardGrid();
 
         Point kingPosition = king.getPosition();
-
-//        System.out.println("king: " + kingPosition.x + "," + kingPosition.y + "\n");
 
         for (Piece piece : attackingPieces) {
             Point[] moves = piece.getMoveablePoints(piece.getPosition(), grid);
