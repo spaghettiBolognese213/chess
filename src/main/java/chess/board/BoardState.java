@@ -36,12 +36,13 @@ public class BoardState {
                              Piece whiteKing_,
                              Piece blackKing_) {
         hasSelected = hasSelected_;
-        selectedPoint = selectedPoint_;
-        moveablePoints = moveablePoints_;
-        allWhitePieces = allWhitePieces_;
-        allBlackPieces = allBlackPieces_;
-        whiteKing = whiteKing_;
-        blackKing = blackKing_;
+        if (selectedPoint_ != null) selectedPoint = new Point(selectedPoint_.x, selectedPoint_.y);
+        else selectedPoint = null;
+        moveablePoints = copyList(moveablePoints_);
+        allWhitePieces = copyList(allWhitePieces_);
+        allBlackPieces = copyList(allBlackPieces_);
+        whiteKing = whiteKing_.copy();
+        blackKing = blackKing_.copy();
     }
 
     public BoardState copy() {
@@ -55,6 +56,26 @@ public class BoardState {
 //        copied.printBoard();
 //        System.out.println();
         return copied;
+    }
+
+    private <T> List<T> copyList(List<T> list) {
+//        int size = Math.max(list1.length, list2.length);
+
+//        System.out.println("compare list");
+        List<T> newList = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            newList.add(list.get(i));
+        }
+        return newList;
+    }
+
+    private <T> void printList(List<T> list) {
+        int count = list.size();
+        for (int i = 0; i < count; i++) {
+            System.out.println(i + ": " + list.get(i));
+        }
+        System.out.println();
     }
 
     // interaction
@@ -77,6 +98,8 @@ public class BoardState {
         boardGrid[selectedPoint.y][selectedPoint.x].setSelected(true);
         hasSelected = true;
         setMoveablePoints(selectedPoint, boardGrid[selectedPoint.y][selectedPoint.x]);
+
+        boardGrid[selectedPoint.y][selectedPoint.x].getMoveablePoints(selectedPoint, boardGrid);
     }
 
     public boolean handleSelected(Point point) {
@@ -145,10 +168,9 @@ public class BoardState {
         allBlackPieces.clear();
 
 //        boardGrid = newGrid;
-
         for (int col = 0; col < boardSize; col++) {
             for (int row = 0; row < boardSize; row++) {
-                boardGrid[col][row] = newGrid[col][row];
+                boardGrid[col][row] = newGrid[col][row].copy();
             }
         }
 
@@ -202,7 +224,7 @@ public class BoardState {
         for (int row = 0; row < boardSize; row++) {
             System.out.printf("|");
             for (int col = 0; col < boardSize; col++) {
-                String pieceStr = boardGrid[row][col] == null ? "null" : boardGrid[row][col].toString();
+                String pieceStr = boardGrid[row][col].getType() == PieceType.EMPTY ? "none" : boardGrid[row][col].toString();
                 int strlen = pieceStr == null ? 4 : pieceStr.length();
 
                 int difference = longestSize - strlen;
