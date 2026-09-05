@@ -14,6 +14,15 @@ public class Display extends JFrame {
     private JPanel timerPanel;
     private JPanel historyPanel;
     private UserInputHandler userInputHandler;
+    private GameOverMenu gameOverMenu;
+    private static Display display = null;
+
+    public static Display getInstance() {
+        if (display == null) {
+            display = new Display();
+        }
+        return display;
+    }
 
     public Display() {
         setTitle("Chess Game");
