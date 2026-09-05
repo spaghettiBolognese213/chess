@@ -6,9 +6,18 @@ import chess.json.*;
 import chess.Match;
 
 public class Chess  {
+    private static Chess instance = null;
     BoardExtractor boardExtractor;
     BoardDisplay boardDisplay;
     Match currentMatch;
+    boolean hasOngoingMatch = true;
+
+    public static Chess getInstance(BoardExtractor bExtractor) {
+        if (instance == null) {
+            instance = new Chess(bExtractor);
+        }
+        return instance;
+    }
 
     public Chess(BoardExtractor bExtractor) {
         boardExtractor = bExtractor;
