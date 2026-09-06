@@ -23,8 +23,8 @@ public class GameOverMenu extends JPanel {
     private JLabel gameConclusionLabel = new JLabel("placeholder", SwingConstants.CENTER);
 
     public GameOverMenu() {
-        setPreferredSize(new Dimension(200, 300));
-        setMaximumSize(new Dimension(200,300));
+        setPreferredSize(new Dimension(200, 75));
+        setMaximumSize(new Dimension(200,75));
         setLayout(new BorderLayout());
 
         createPanel();
