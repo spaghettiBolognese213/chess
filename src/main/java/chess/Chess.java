@@ -6,27 +6,43 @@ import chess.json.*;
 import chess.Match;
 
 public class Chess  {
+    private static Chess instance = null;
     BoardExtractor boardExtractor;
-    Display display;
     BoardDisplay boardDisplay;
     Match currentMatch;
+    boolean hasOngoingMatch = true;
 
-    public Chess(BoardExtractor bExtractor) {
+    public static Chess getInstance(BoardExtractor bExtractor) {
+        if (instance == null) {
+            instance = new Chess(bExtractor);
+        }
+        return instance;
+    }
+
+    public static Chess getInstance() {
+        if (instance == null) {
+            throw new NullPointerException("chess game instance is null");
+        }
+        return instance;
+    }
+
+    private Chess(BoardExtractor bExtractor) {
         boardExtractor = bExtractor;
-        display = new Display();
+    }
+
+    public void runGame() {
+        play();
     }
 
     public void play() {
         loadMatch();
-        display.drawBoard(currentMatch.getBoardGrid());
-
-        while (true);
+        Display.getInstance().drawBoard(currentMatch.getBoardGrid());
     }
 
     public void loadMatch() {
         currentMatch = new Match(getGridFromSave(boardExtractor));
-        display.setBoard(currentMatch);
-        display.drawBoard(currentMatch.getBoardGrid());
+        Display.getInstance().setBoard(currentMatch);
+        Display.getInstance().drawBoard(currentMatch.getBoardGrid());
         boardDisplay = new BoardDisplay(currentMatch.getBoardState());
     }
 
