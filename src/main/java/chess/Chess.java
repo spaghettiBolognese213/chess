@@ -23,6 +23,10 @@ public class Chess  {
         boardExtractor = bExtractor;
     }
 
+    public void runGame() {
+        play();
+    }
+
     public void play() {
         loadMatch();
         Display.getInstance().drawBoard(currentMatch.getBoardGrid());

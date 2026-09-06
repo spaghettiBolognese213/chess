@@ -1,9 +1,10 @@
 package chess;
 
 import chess.board.*;
-import chess.board.pieces.EmptyPiece;
 import chess.board.pieces.Piece;
 import chess.board.pieces.PieceType;
+import chess.display.Display;
+import chess.display.GameOverMenu;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -137,7 +138,7 @@ public class Match {
 
         boolean didMove = boardState.handleSelected(square);
         if (didMove) {
-            stateList.add(boardState); // maybe make a deep copy here
+//            stateList.add(boardState); // maybe make a deep copy here
 
             boardState.buildPieceLists();
 
@@ -155,10 +156,12 @@ public class Match {
                 System.out.println("CHECK!");
 
                 if (isMate(king, attackingPieces)) {
-//                if (isMate(king, defenders, attackingPieces)) {
                     winner = whiteTurn ? "WHITE" : "BLACK";
                     System.out.println(winner + " has won!");
 
+                    GameOverMenu.GameConclusion conclusion = whiteTurn ?
+                            GameOverMenu.GameConclusion.WHITE_WON : GameOverMenu.GameConclusion.BLACK_WON;
+                    Display.getInstance().showEndGamePanel(true, conclusion);
                 }
             }
             whiteTurn = !whiteTurn;

@@ -57,7 +57,16 @@ public class Display extends JFrame {
         centerContainer.add(westContainer, BorderLayout.CENTER);
         centerContainer.add(historyPanel, BorderLayout.EAST);
 
-        add(centerContainer, BorderLayout.CENTER); // Add combined container to frame
+//        add(centerContainer, BorderLayout.CENTER); // Add combined container to frame
+
+        JPanel overlayContainer = new JPanel();
+        overlayContainer.setLayout(new OverlayLayout(overlayContainer));
+
+        gameOverMenu = new GameOverMenu();
+        overlayContainer.add(gameOverMenu);
+        overlayContainer.add(centerContainer);
+
+        add(overlayContainer, BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
@@ -71,6 +80,15 @@ public class Display extends JFrame {
 
     public void drawBoard(Piece[][] currentGrid) {
         boardDisplay.drawPieces(currentGrid);
+    }
+
+    public void showEndGamePanel(Boolean isVisible, GameOverMenu.GameConclusion result) {
+        gameOverMenu.setGameConclusion(result);
+        gameOverMenu.setVisible(isVisible);
+        gameOverMenu.revalidate();
+        gameOverMenu.repaint();
+        revalidate();
+        repaint();
     }
 
     public static void main(String[] args) {
