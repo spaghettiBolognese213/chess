@@ -26,7 +26,6 @@ public class Pawn extends Piece {
         int multiplier = (isWhite) ? 1 : -1;
         int boardSize = boardGrid.length;
 
-        // right
         Point tempPoint = new Point(position.x + 1, position.y + multiplier);
         if (tempPoint.x >= 0 && tempPoint.x < boardSize
                 && tempPoint.y >= 0 && tempPoint.y < boardSize) {
@@ -36,7 +35,6 @@ public class Pawn extends Piece {
                     targetPiece.isWhite != this.isWhite) outputArray.add(tempPoint);
         }
 
-        // left
         tempPoint = new Point(position.x - 1, position.y + multiplier);
         if (tempPoint.x >= 0 && tempPoint.x < boardSize
                 && tempPoint.y >= 0 && tempPoint.y < boardSize) {

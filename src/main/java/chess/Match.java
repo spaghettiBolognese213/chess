@@ -62,7 +62,6 @@ public class Match {
         return true;
     }
 
-    // check if king has a move that is not in this list<point>
     private List<Point> attackedPositions(List<Piece> allPieces) {
         List<Point> attackedPoints = new ArrayList<Point>();
         Point[] pointBuffer;
@@ -82,8 +81,6 @@ public class Match {
     }
 
     private boolean isMate(Piece king, List<Piece> attackers) {
-//        List<Point> attackedPoints = attackedPositions(attackers);
-//        Point[] movablePointsKing = king.getMoveablePoints(king.getPosition(),getBoardState().getBoardGrid());
         List<Piece> defenders = boardState.getWhitePieces(!whiteTurn);
 
         for (Piece defender : defenders) { // loops through all possible moves
@@ -107,7 +104,6 @@ public class Match {
             }
         }
 
-        System.out.println("Check mate");
         return true;
     }
 
@@ -120,7 +116,6 @@ public class Match {
         for (Piece piece : attackingPieces) {
             Point[] moves = piece.getMoveablePoints(piece.getPosition(), grid);
             for (Point p : moves) {
-//                System.out.println("points: " + p.x + "," + p.y);
                 if (p.equals(kingPosition)) {
                     return true;
                 }
@@ -138,7 +133,6 @@ public class Match {
 
         boolean didMove = boardState.handleSelected(square);
         if (didMove) {
-//            stateList.add(boardState); // maybe make a deep copy here
 
             boardState.buildPieceLists();
 
@@ -153,19 +147,14 @@ public class Match {
                     whiteInCheck = true;
                 }
                 else { blackInCheck = true; }
-                System.out.println("CHECK!");
 
                 if (isMate(king, attackingPieces)) {
-                    winner = whiteTurn ? "WHITE" : "BLACK";
-                    System.out.println(winner + " has won!");
-
                     GameOverMenu.GameConclusion conclusion = whiteTurn ?
                             GameOverMenu.GameConclusion.WHITE_WON : GameOverMenu.GameConclusion.BLACK_WON;
                     Display.getInstance().showEndGamePanel(true, conclusion);
                 }
             }
             whiteTurn = !whiteTurn;
-//            boardState.printBoard();
         }
     }
 }

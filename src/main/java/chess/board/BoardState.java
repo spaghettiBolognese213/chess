@@ -50,18 +50,10 @@ public class BoardState {
         copied.setGrid(this.boardGrid);
 
         copied.setMembers(hasSelected, selectedPoint, moveablePoints, allWhitePieces, allBlackPieces, whiteKing, blackKing);
-//        System.out.println("original board");
-//        this.printBoard();
-//        System.out.println("copied board");
-//        copied.printBoard();
-//        System.out.println();
         return copied;
     }
 
     private <T> List<T> copyList(List<T> list) {
-//        int size = Math.max(list1.length, list2.length);
-
-//        System.out.println("compare list");
         List<T> newList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
@@ -103,7 +95,7 @@ public class BoardState {
     }
 
     public boolean handleSelected(Point point) {
-        if (hasSelected && selectedPoint.equals(point)) { // deselect
+        if (hasSelected && selectedPoint.equals(point)) {
             deselectSquare();
         }
         else if (moveablePoints.contains(point) && !selectedPoint.equals(point)) {
@@ -112,7 +104,7 @@ public class BoardState {
             deselectSquare();
             return true;
         }
-        else if (hasSelected && !selectedPoint.equals(point)) { // reselect
+        else if (hasSelected && !selectedPoint.equals(point)) {
             deselectSquare();
             selectSquare(point);
         }
@@ -129,7 +121,6 @@ public class BoardState {
         moveablePoints.clear();
     }
 
-    // getters
     public Piece[][] getBoardGrid() {return boardGrid;}
 
     public Piece getSelectedPiece() {
@@ -167,7 +158,6 @@ public class BoardState {
         allWhitePieces.clear();
         allBlackPieces.clear();
 
-//        boardGrid = newGrid;
         for (int col = 0; col < boardSize; col++) {
             for (int row = 0; row < boardSize; row++) {
                 boardGrid[col][row] = newGrid[col][row].copy();
@@ -233,7 +223,6 @@ public class BoardState {
                 else {
                     postSpace = 2 + preSpace;
                 }
-//                System.out.printf("|");
                 for (int i = 0; i < preSpace; i++) {
                     System.out.printf(" ");
                 }
@@ -244,13 +233,7 @@ public class BoardState {
                     System.out.printf(" ");
                 }
                 System.out.printf("|");
-//                stringSize += 3;
-//                if (pieceStr == null) {
-//                    stringSize += 4;
-//                }
-//                else {
-//                    stringSize += boardGrid[row][col].toString().length();
-//                }
+
                 preSpace = 0;
                 postSpace = 0;
             }
@@ -263,7 +246,6 @@ public class BoardState {
 
             System.out.printf("\n");
 
-//            stringSize = 1;
         }
     }
 }
