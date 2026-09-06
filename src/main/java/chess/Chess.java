@@ -19,7 +19,14 @@ public class Chess  {
         return instance;
     }
 
-    public Chess(BoardExtractor bExtractor) {
+    public static Chess getInstance() {
+        if (instance == null) {
+            throw new NullPointerException("chess game instance is null");
+        }
+        return instance;
+    }
+
+    private Chess(BoardExtractor bExtractor) {
         boardExtractor = bExtractor;
     }
 
@@ -30,8 +37,6 @@ public class Chess  {
     public void play() {
         loadMatch();
         Display.getInstance().drawBoard(currentMatch.getBoardGrid());
-
-        while (true);
     }
 
     public void loadMatch() {

@@ -1,8 +1,14 @@
 package chess.display;
 
+import chess.Chess;
+
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GameOverMenu extends JPanel {
     public enum GameConclusion{
@@ -12,46 +18,65 @@ public class GameOverMenu extends JPanel {
     }
 
     private JPanel menuPanel;
-    private GameOverMenu gameOverMenu = null;
     private GameConclusion gameConclusion;
-//    private JLabel gameConclusionLabel;
+    private JPanel labelPanel;
+    private JLabel gameConclusionLabel = new JLabel("placeholder", SwingConstants.CENTER);
 
     public GameOverMenu() {
-        createPanel();
-        // create panel
-            // make layout of panel
-        // add buttons
-    }
-
-    private void createPanel() {
-//        this = new/ JPanel();
-//        menuPanel.setPreferredSize(new Dimension(300, 500));
-        setPreferredSize(new Dimension(300, 300));
+        setPreferredSize(new Dimension(200, 300));
+        setMaximumSize(new Dimension(200,300));
         setLayout(new BorderLayout());
 
-//        add(getGameConclusionLabel());
+        createPanel();
 
+        add(menuPanel, BorderLayout.CENTER);
         setVisible(false);
     }
 
-    private JLabel getGameConclusionLabel() {
-        return switch(gameConclusion) {
-            case WHITE_WON -> new JLabel("White won");
-            case BLACK_WON -> new JLabel("Black won");
-            case DRAW -> new JLabel("Draw");
-            default -> new JLabel("Something went wrong");
-        };
+    private void createPanel() {
+        labelPanel = new JPanel();
+        labelPanel.setLayout(new BorderLayout());
+        labelPanel.setPreferredSize(new Dimension(200, 50));
+        labelPanel.setMaximumSize(new Dimension(200, 50));
+        labelPanel.setBorder(new EmptyBorder(10,10,30,10));
+        labelPanel.add(gameConclusionLabel, BorderLayout.CENTER);
+
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new BorderLayout());
+        menuPanel.setBorder(new EmptyBorder(10,10,10,10));
+        menuPanel.add(gameConclusionLabel, BorderLayout.NORTH);
+
+        addButtons();
+    }
+
+    private void addButtons() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout());
+
+        JButton resetGameButton = new JButton("Start new game");
+        resetGameButton.setPreferredSize(new Dimension(125, 20));
+        resetGameButton.setMaximumSize(new Dimension(125, 20));
+        resetGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Chess.getInstance().play();
+                Display.getInstance().showEndGamePanel(false, null);
+            }
+        });
+
+        buttonPanel.add(resetGameButton);
+
+        menuPanel.add(buttonPanel, BorderLayout.CENTER);
     }
 
     public void setGameConclusion(GameConclusion result) {
-//        gameConclusion = result;
-        JLabel label = switch(result) {
-            case WHITE_WON -> new JLabel("White won");
-            case BLACK_WON -> new JLabel("Black won");
-            case DRAW -> new JLabel("Draw");
-            default -> new JLabel("Something went wrong");
+        String text = switch(result) {
+            case WHITE_WON -> "White won";
+            case BLACK_WON -> "Black won";
+            case DRAW -> "Draw";
+            default -> "Something went wrong";
         };
 
-        add(label);
+        gameConclusionLabel.setText(text);
     }
 }

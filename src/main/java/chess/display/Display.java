@@ -2,7 +2,6 @@ package chess.display;
 
 
 import chess.Match;
-import chess.board.BoardState;
 import chess.board.pieces.Piece;
 import chess.userInput.UserInputHandler;
 
@@ -83,7 +82,7 @@ public class Display extends JFrame {
     }
 
     public void showEndGamePanel(Boolean isVisible, GameOverMenu.GameConclusion result) {
-        gameOverMenu.setGameConclusion(result);
+        if (isVisible) gameOverMenu.setGameConclusion(result);
         gameOverMenu.setVisible(isVisible);
         gameOverMenu.revalidate();
         gameOverMenu.repaint();
